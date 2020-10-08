@@ -1,24 +1,24 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { Logger } from './logger/logger';
+import connect from "./databases"
 import Routes from './routes/routes';
+import connection from './databases/sqlserver';
 
 class App {
   public express: express.Application;
   users: any[];
-  public logger: Logger;
 
   constructor() {
     this.express = express();
     this.middleware();
     this.routes();
-    this.logger = new Logger();
+    connect(this.express);
   }
 
   private middleware(): void {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
-  }
+    }
 
   private routes(): void {
     this.express.get('/', (req, res, next) => {

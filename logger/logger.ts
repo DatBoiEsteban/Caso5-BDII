@@ -1,14 +1,18 @@
-// tslint:disable: no-console
-export class Logger {
-  public info(logText: string): void {
-    console.log(new Date() + 'info:::::' + logText);
-  }
+import { createLogger, transports, format } from 'winston';
 
-  public debug(logText: string): void {
-    console.log(new Date() + 'debug:::::' + logText);
-  }
 
-  public error(logText: string): void {
-    console.log(new Date() + 'error:::::' + logText);
-  }
-}
+const nicePrint = format.printf(({ level, message, timestamp }) => {
+  return `${new Date(timestamp).toLocaleDateString()} ${new Date(timestamp).toLocaleTimeString()} [${level}]: ${message}`;
+});
+
+export default createLogger({
+  level: 'info',
+  format: format.combine(
+    format.colorize(),
+    format.timestamp(),
+    nicePrint,
+  ),
+  transports: [
+    new transports.Console()
+  ]
+})

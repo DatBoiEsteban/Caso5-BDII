@@ -1,11 +1,10 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { Logger } from '../logger/logger';
+import Logger from '../logger/logger';
 import User from './user';
 
 class Routes {
   public express: express.Application;
-  public logger: Logger;
 
   users: any[];
 
@@ -13,7 +12,6 @@ class Routes {
     this.express = express();
     this.middleware();
     this.routes();
-    this.logger = new Logger();
   }
 
   private middleware(): void {
