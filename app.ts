@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import connect from "./databases"
 import Routes from './routes/routes';
-import connection from './databases/sqlserver';
+import connect from "./mongo/database";
+import data from "./mongo/data";
 
 class App {
   public express: express.Application;
@@ -12,7 +12,7 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
-    connect(this.express);
+    connect().then(data);
   }
 
   private middleware(): void {
