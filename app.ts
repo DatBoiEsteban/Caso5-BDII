@@ -1,8 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import Routes from './routes/routes';
-import connect from "./mongo/database";
-import data from "./mongo/data";
+import configureDbs from "./databases";
 
 class App {
   public express: express.Application;
@@ -12,13 +11,13 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
-    connect().then(data);
+    configureDbs(this.express);
   }
 
   private middleware(): void {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
-    }
+  }
 
   private routes(): void {
     this.express.get('/', (req, res, next) => {

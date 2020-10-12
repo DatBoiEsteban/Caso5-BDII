@@ -1,18 +1,21 @@
+import { Application } from "express";
 import { Connection } from "tedious";
 import Logger from "../logger/logger";
 
 
+/** Establece una nueva conexion con Sql Server */
 const connection = new Connection({
-    server: "192.168.1.210",
+    server: ".",
     authentication: {
         type: "default",
         options: {
-            userName: "test",
-            password: "hola12345caso5"
+            userName: "caso5admin",
+            password: "test"
         }
     }
-})
+});
 
+/** Listener cuando se conecta a la base de datos */
 connection.on('connect', (err) => {
     if (err)
         Logger.error("No se pudo conectar a la base de datos de Sql Server", err)
@@ -20,4 +23,5 @@ connection.on('connect', (err) => {
         Logger.info("Conectado a la base de datos de Sql Server")
 })
 
-export default connection;
+/** Exporta la conexion */
+export default (app: Application) => app.set("sql", connection);
