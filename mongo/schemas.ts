@@ -35,7 +35,7 @@ const PostSchema = new Schema({
       },
     },
   ],
-  hashes: [String],
+  hashes: { type: [String], index: true },
 });
 
 /** Exporta el modelo para poder ser utilizado */

@@ -1,6 +1,7 @@
 import * as express from 'express';
 import Logger from '../logger/logger';
 import { getHashtags } from '../elasticsearch/connection';
+import Post from '../mongo/schemas';
 
 const app = express();
 
@@ -15,8 +16,8 @@ app.get('/:inicio/:final', async (req, res) => {
     (final - 1) * tamanodegrupo
   );
   const datosLimpios = hashtagsparaenviar.map((x) => x.key);
-  Logger.info(tamanodegrupo);
-  res.json(datosLimpios);
+  const articulos = await Post.find();
+  res.json(articulos);
 });
 
 export default app;

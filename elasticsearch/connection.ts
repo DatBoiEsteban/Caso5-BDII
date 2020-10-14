@@ -12,7 +12,7 @@ const getHashtags = async (): Promise<any[]> => {
           terms: {
             field: 'description.keyword',
             min_doc_count: 1,
-            size: 2000,
+            size: 100,
           },
         },
       },
