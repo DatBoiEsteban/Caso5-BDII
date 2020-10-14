@@ -1,7 +1,8 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import Routes from './routes/routes';
-import configureDbs from "./databases";
+import configureDbs from './databases';
+import { getHashtags } from './elasticsearch/connection';
 
 class App {
   public express: express.Application;
@@ -11,7 +12,8 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
-    configureDbs(this.express);
+    getHashtags();
+    // configureDbs(this.express);
   }
 
   private middleware(): void {

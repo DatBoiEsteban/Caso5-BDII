@@ -13,6 +13,8 @@
   "author": "Esteban Mata & Andres Chacon",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.9.1",
+    "es7": "npm:@elastic/elasticsearch@^7.9.1",
     "express": "^4.17.1",
     "faker": "^5.1.0",
     "mongoose": "^5.10.9",
