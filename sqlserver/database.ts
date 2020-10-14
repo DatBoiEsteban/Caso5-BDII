@@ -2,12 +2,9 @@ import { Application } from 'express';
 import { Connection } from 'tedious';
 import Logger from '../logger/logger';
 
-
 /** Exporta la conexion */
 export default (app: Application) => {
-
   return new Promise((res, rej) => {
-
     /** Establece una nueva conexion con Sql Server */
     const connection = new Connection({
       server: '.',
@@ -19,6 +16,20 @@ export default (app: Application) => {
         },
       },
     });
+    // const connection = new Connection({
+    //   server: 'localhost',
+    //   authentication: {
+    //     type: 'default',
+    //     options: {
+    //       userName: 'sa',
+    //       password: 'reallyStrongPassword123',
+    //     },
+    //   },
+    //   options: {
+    //     database: 'caso5',
+    //     encrypt: false,
+    //   },
+    // });
 
     /** Listener cuando se conecta a la base de datos */
     connection.on('connect', (err) => {
@@ -29,5 +40,5 @@ export default (app: Application) => {
         res();
       }
     });
-  })
-}
+  });
+};
