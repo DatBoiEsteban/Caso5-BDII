@@ -11,32 +11,13 @@ const getHashtags = (): void => {
         duplicate_aggs: {
           terms: {
             field: 'description.keyword',
-            min_doc_count: 2,
+            min_doc_count: 1,
+            size: 2000,
           },
         },
         duplicate_bucketcount: {
           stats_bucket: {
             buckets_path: 'duplicate_aggs._count',
-          },
-        },
-        nonduplicate_aggs: {
-          terms: {
-            field: 'description.keyword',
-          },
-          aggs: {
-            equal_one: {
-              bucket_selector: {
-                buckets_path: {
-                  count: '_count',
-                },
-                script: 'params.count == 1',
-              },
-            },
-          },
-        },
-        nonduplicate_bucketcount: {
-          sum_bucket: {
-            buckets_path: 'nonduplicate_aggs._count',
           },
         },
       },
