@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import Logger from '../logger/logger';
-import User from './user';
+import Hashtags from './user';
 
 class Routes {
   public express: express.Application;
@@ -20,7 +20,7 @@ class Routes {
   }
 
   private routes(): void {
-    this.express.use('/user', User);
+    this.express.use('/hashtags', Hashtags);
   }
 }
 

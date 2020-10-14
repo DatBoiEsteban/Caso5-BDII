@@ -1,25 +1,22 @@
 import * as express from 'express';
 import Logger from '../logger/logger';
+import { getHashtags } from '../elasticsearch/connection';
 
 const app = express();
-const users = [
-  { firstName: 'fnam1', lastName: 'lnam1', userName: 'username1' },
-];
 
-app.get('/users', (req, res) => {
-  Logger.info('users route');
-  res.json(users);
-});
+app.get('/:inicio/:final', async (req, res) => {
+  const inicio = +req.params.inicio;
+  const final = +req.params.final;
+  const hashtags = await getHashtags();
 
-app.get('/users/:userName', (req, res) => {
-  Logger.info(`filter users by username:::::${req.params.userName}`);
-  const user = users.filter((usr) => req.params.userName === usr.userName);
-  res.json(user);
-});
+  const tamanodegrupo = Math.floor(hashtags.length / 10);
+  const hashtagsparaenviar = hashtags.slice(
+    (inicio - 1) * tamanodegrupo,
+    (final - 1) * tamanodegrupo
+  );
 
-app.post('/user', (req, res) => {
-  users.push(req.body);
-  res.json(users);
+  Logger.info(tamanodegrupo);
+  res.json(hashtagsparaenviar);
 });
 
 export default app;

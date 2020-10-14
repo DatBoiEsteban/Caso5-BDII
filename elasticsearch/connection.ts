@@ -3,8 +3,8 @@ import logger from '../logger/logger';
 
 const es = new Client({ node: 'http://localhost:9200' });
 
-const getHashtags = (): void => {
-  es.search({
+const getHashtags = async (): Promise<any[]> => {
+  const result = await es.search({
     index: 'videos',
     body: {
       aggs: {
@@ -15,17 +15,10 @@ const getHashtags = (): void => {
             size: 2000,
           },
         },
-        duplicate_bucketcount: {
-          stats_bucket: {
-            buckets_path: 'duplicate_aggs._count',
-          },
-        },
       },
     },
-  }).then(
-    (res) => logger.info(JSON.stringify(res.body.aggregations, null, 4)),
-    (err) => logger.error(err)
-  );
+  });
+  return result.body.aggregations.duplicate_aggs.buckets;
 };
 
 export { getHashtags };
