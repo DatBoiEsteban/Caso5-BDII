@@ -4,20 +4,25 @@ import logger from '../logger/logger';
 
 /** Funcion de conexion con MongoDB */
 export default async (app: Application) => {
-  // Intenta conectarse
-  try {
-    // Abre la conexion
-    await mongoose.connect('mongodb://localhost:27017/caso5', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+  return new Promise(async (res, rej) => {
 
-    // Indica que salió bien
-    logger.info('Conexión existosa con MongoDB');
+    // Intenta conectarse
+    try {
+      // Abre la conexion
+      await mongoose.connect('mongodb://localhost:27017/caso5', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
 
-    app.set('mongoose', mongoose);
-  } catch (error) {
-    // Si sale mal
-    logger.error('No se pudo conectar con MongoDB', error);
-  }
+      // Indica que salió bien
+      logger.info('Conexión existosa con MongoDB');
+
+      app.set('mongoose', mongoose);
+
+      res();
+    } catch (error) {
+      // Si sale mal
+      rej(error)
+    }
+  })
 };
