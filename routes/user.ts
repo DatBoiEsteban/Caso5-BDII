@@ -14,9 +14,9 @@ app.get('/:inicio/:final', async (req, res) => {
     (inicio - 1) * tamanodegrupo,
     (final - 1) * tamanodegrupo
   );
-
+  const datosLimpios = hashtagsparaenviar.map((x) => x.key);
   Logger.info(tamanodegrupo);
-  res.json(hashtagsparaenviar);
+  res.json(datosLimpios);
 });
 
 export default app;
