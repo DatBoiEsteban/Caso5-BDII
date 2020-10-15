@@ -1,4 +1,5 @@
 import * as faker from 'faker/locale/es';
+import { getHashtags } from '../elasticsearch/connection';
 import logger from '../logger/logger';
 import Post, { IPost } from './schemas';
 
@@ -6,7 +7,7 @@ import Post, { IPost } from './schemas';
 const POSTS_NUMBER = 1000;
 
 /** Indicador si quiere sobrescribir siempre los posts */
-const OVERRIDE = false;
+const OVERRIDE = true;
 
 /** Funcion para generar posts random para mongodb */
 export default async () => {
@@ -15,6 +16,10 @@ export default async () => {
 
   // Elimina todos los posts para empezar desde 0
   await Post.deleteMany({});
+
+  // Obtenemos la lista de hashes desde es
+  const hashtags = await getHashtags();
+  const posiblesHashtas = hashtags.map((x) => x.key);
 
   // Instancia una lista para ir agregando los posts
   const posts: Partial<IPost>[] = [];
@@ -38,7 +43,11 @@ export default async () => {
           subTitulo: faker.lorem.words(4),
         },
       ],
-      hashes: faker.lorem.words(10).split(' '),
+      hashes: [
+        posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
+        posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
+        posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
+      ],
     });
 
   // Agrega los posts en la base de datos
