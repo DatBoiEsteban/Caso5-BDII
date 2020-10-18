@@ -1,9 +1,13 @@
 import { Client } from '@elastic/elasticsearch';
-import logger from '../logger/logger';
 
+
+// Se conecta con Elastic Search
 const es = new Client({ node: 'http://localhost:9200' });
 
-const getHashtags = async (): Promise<any[]> => {
+/** Funcion para obtener todos los hashtags */
+export const getHashtags = async (): Promise<any[]> => {
+  
+  // Ejecuta la peticion a elastic
   const result = await es.search({
     index: 'videos',
     body: {
@@ -18,7 +22,7 @@ const getHashtags = async (): Promise<any[]> => {
       },
     },
   });
+
+  // Y retorna los resultados
   return result.body.aggregations.duplicate_aggs.buckets;
 };
-
-export { getHashtags };

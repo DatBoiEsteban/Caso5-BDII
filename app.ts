@@ -1,37 +1,55 @@
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import Routes from './routes/routes';
+import routes from './routes';
 import configureDbs from './databases';
-import { getHashtags } from './elasticsearch/connection';
 
+
+/** Clase para crear el servidor de express */
 class App {
+
+  /** Servidor de express */
   public express: express.Application;
-  users: any[];
 
+  /** Constructor */
   constructor() {
+
+    // Crea la aplicacion de express
     this.express = express();
+
+    // Activa los middlewares del pipeline
     this.middleware();
+
+    // Configura las rutas
     this.routes();
-    getHashtags();
-    // configureDbs(this.express);
+
+    // Configura las bases de datos
+    configureDbs(this.express);
   }
 
-  private middleware(): void {
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
+  /** Metodo para configurar los middlewars */
+  private middleware() {
+
+    // Configura los middlewares para leer el json desde el cuerpo
+    this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: false }))
   }
 
-  private routes(): void {
+  /** Metedo para configurar las rutas */
+  private routes() {
+
+    // Ruta inicial donde se muestran todas las urls
     this.express.get('/', (req, res, next) => {
-      res.send('Typescript App works!!!');
+      res.send("Caso 5");
     });
 
-    this.express.use('/api', Routes);
+    // Configura las rutas de api
+    routes(this.express);
 
+    // Y una ruta fallback
     this.express.use('*', (req, res, next) => {
       res.send('Make sure url is correct!!!');
     });
   }
 }
 
+// Exporta el servidor
 export default new App().express;
