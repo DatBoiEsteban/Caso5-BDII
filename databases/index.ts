@@ -8,7 +8,7 @@ import logger from '../logger/logger';
 export default (app: Application) => {
   // Se conecta y genera la informacion de pruebas para Mongo
   mongoConnect(app)
-    // .then(() => mongoData())
+    .then(() => mongoData())
     .catch((err) => logger.error('No se pudo conectar con MongoDB', err));
 
   // Se conecta y genera la informacion de pruebas para Sql Server

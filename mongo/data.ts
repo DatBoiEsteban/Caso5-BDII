@@ -42,7 +42,7 @@ export default async () => {
           contenido: faker.lorem.paragraphs(3),
           subTitulo: faker.lorem.words(4),
         },
-      ],
+      ],  
       hashes: [
         posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
         posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
