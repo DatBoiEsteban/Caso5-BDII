@@ -64,7 +64,7 @@ app.get('/sql/:inicio/:final', async (req, res) => {
     WHERE Hashtag IN ('motorcycle')
   `, 
     (err, _, rows) => 
-      res.json({ posts: rows })));
+      res.json({ posts: rows, err })));
   
 });
 
