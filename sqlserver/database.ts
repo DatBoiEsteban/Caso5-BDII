@@ -6,31 +6,31 @@ import Logger from '../logger/logger';
 export default (app: Application) => {
   return new Promise((res, rej) => {
     /** Establece una nueva conexion con Sql Server */
-    const connection = new Connection({
-      server: '.',
-      authentication: {
-        type: 'default',
-        options: {
-          userName: 'caso5admin',
-          password: 'test',
-        },
-      },
-    });
-
     // const connection = new Connection({
-    //   server: 'localhost',
+    //   server: '.',
     //   authentication: {
     //     type: 'default',
     //     options: {
-    //       userName: 'sa',
-    //       password: 'reallyStrongPassword123',
+    //       userName: 'caso5admin',
+    //       password: 'test',
     //     },
     //   },
-    //   options: {
-    //     database: 'caso5',
-    //     encrypt: false,
-    //   },
     // });
+
+    const connection = new Connection({
+      server: 'localhost',
+      authentication: {
+        type: 'default',
+        options: {
+          userName: 'sa',
+          password: 'reallyStrongPassword123',
+        },
+      },
+      options: {
+        database: 'caso5',
+        encrypt: false,
+      },
+    });
 
     /** Listener cuando se conecta a la base de datos */
     connection.on('connect', (err) => {

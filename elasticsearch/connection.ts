@@ -1,12 +1,10 @@
 import { Client } from '@elastic/elasticsearch';
 
-
 // Se conecta con Elastic Search
 const es = new Client({ node: 'http://localhost:9200' });
 
 /** Funcion para obtener todos los hashtags */
 export const getHashtags = async (): Promise<any[]> => {
-  
   // Ejecuta la peticion a elastic
   const result = await es.search({
     index: 'videos',
