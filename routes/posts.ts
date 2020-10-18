@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { Connection, Request } from 'tedious';
 import { getHashtags } from '../elasticsearch/connection';
 import Post from '../mongo/schemas';
 import Redis from "../redis";
@@ -34,6 +35,39 @@ app.get('/mongo/:inicio/:final', async (req, res) => {
   // Y los envia al usuario
   return res.json(posts);
 });
+
+// Ruta para obtener los posts desde mongo
+app.get('/sql/:inicio/:final', async (req, res) => {
+
+  // Obtiene los grupos que se solicitaron
+  const inicio = +req.params.inicio;
+  const final = +req.params.final;
+
+  // Revisa si hay alguna respuesta en el cache
+  const redisCachedResponse = await Redis.get(`mongo-posts-${inicio}-${final}:`);
+
+  // Si la hay, la envia al usuario
+  if (redisCachedResponse)
+    return res.json(redisCachedResponse);
+
+  // Limpia los hasheas
+  const rawHashtags = await formatHashes(inicio, final);
+  
+  // Obtiene los posts que tenga esos hashtags
+  const sql = req.app.get("sql") as Connection;
+
+  // Ejecuta el query
+  sql.execSql(new Request(`
+    SELECT H.Hashtag, A.Titulo, A.Autor FROM Hashtags H
+    INNER JOIN Articulo_Hashtags AH ON AH.HashtagId = H.Id
+    INNER JOIN Articulos A ON A.Id = AH.ArticuloId
+    WHERE Hashtag IN ('motorcycle')
+  `, 
+    (err, _, rows) => 
+      res.json({ posts: rows })));
+  
+});
+
 
 // Exporta la aplicacion
 export default app;
