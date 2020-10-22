@@ -104,15 +104,6 @@ const formatHashes = async (inicio: number, final: number) => {
   // De lo contrario, obtiene todos los hashtags
   const hashtags = await getHashtags(inicio, final);
 
-  // Obtiene el tamaño de cada grupo
-  const groupSize = Math.floor(hashtags.length / 10);
-  
-  // Obtiene el gropo de hashtags que se solicito
-  const group = hashtags.slice(
-    (inicio - 1) * groupSize,
-    (final - 1) * groupSize
-  );
-
   // Obtiene todos los hashtags del grupo
-  return group.map((x) => x.key);
+  return hashtags;
 }
