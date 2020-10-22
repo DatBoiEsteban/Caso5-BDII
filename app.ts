@@ -1,6 +1,6 @@
 import * as express from 'express';
 import routes from './routes';
-import configureDbs from './databases';
+import configureDbs, { MongoDataAccesor } from './databases';
 
 
 /** Clase para crear el servidor de express */
@@ -20,6 +20,9 @@ class App {
 
     // Configura las rutas
     this.routes();
+
+    // Configura el data accesor
+    this.express.set("data", new MongoDataAccesor());
 
     // Configura las bases de datos
     configureDbs(this.express);
