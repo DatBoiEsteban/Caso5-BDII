@@ -52,6 +52,7 @@ app.get('/sql/:inicio/:final', async (req, res) => {
 
   // Limpia los hasheas
   const rawHashtags = await formatHashes(inicio, final);
+  const hashtags = "'" + rawHashtags.join("','") + "'";
   
   // Obtiene los posts que tenga esos hashtags
   const sql = req.app.get("sql") as Connection;
@@ -61,7 +62,7 @@ app.get('/sql/:inicio/:final', async (req, res) => {
     SELECT H.Hashtag, A.Titulo, A.Autor FROM Hashtags H
     INNER JOIN Articulo_Hashtags AH ON AH.HashtagId = H.Id
     INNER JOIN Articulos A ON A.Id = AH.ArticuloId
-    WHERE Hashtag IN ('motorcycle')
+    WHERE Hashtag IN (${hashtags})
   `, 
     (err, _, rows) => 
       res.json({ posts: rows, err })));

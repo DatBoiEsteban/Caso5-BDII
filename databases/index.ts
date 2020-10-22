@@ -1,8 +1,10 @@
+import { Application } from 'express';
+import Post from "../mongo/schemas";
 import mongoConnect from '../mongo/database';
 import mongoData from '../mongo/data';
 import sqlConnect from '../sqlserver/database';
-import { Application } from 'express';
 import logger from '../logger/logger';
+
 
 /** Metodo para configurar las bases de datos de Sql Server y Mongo */
 export default (app: Application) => {
