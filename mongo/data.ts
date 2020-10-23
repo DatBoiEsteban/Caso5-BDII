@@ -18,7 +18,7 @@ export default async () => {
   await Post.deleteMany({});
 
   // Obtenemos la lista de hashes desde es
-  const hashtags = await getHashtags();
+  const hashtags = await getHashtags(0, 10);
   const posiblesHashtas = hashtags.map((x) => x.key);
 
   // Instancia una lista para ir agregando los posts
@@ -42,7 +42,7 @@ export default async () => {
           contenido: faker.lorem.paragraphs(3),
           subTitulo: faker.lorem.words(4),
         },
-      ],  
+      ],
       hashes: [
         posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
         posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
