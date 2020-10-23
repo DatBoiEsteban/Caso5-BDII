@@ -11,7 +11,7 @@ namespace Base2Caso5
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.;Database=caso5;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=127.0.0.1,1433;Database=caso5; User Id=sa; Password=reallyStrongPassword123");
         }
     }
 }
