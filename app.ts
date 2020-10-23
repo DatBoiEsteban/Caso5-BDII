@@ -21,8 +21,8 @@ class App {
     this.routes();
 
     // Configura el data accesor
-    // this.express.set('data', new SqlDataAccesor(this.express));
-    this.express.set('data', new MongoDataAccesor());
+    this.express.set('data', new SqlDataAccesor(this.express));
+    // this.express.set('data', new MongoDataAccesor());
 
     // Configura las bases de datos
     configureDbs(this.express);

@@ -45,8 +45,8 @@ export default async () => {
       ],
       hashes: [
         posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
-        posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
-        posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
+        // posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
+        // posiblesHashtas[Math.floor(Math.random() * posiblesHashtas.length) + 1],
       ],
     });
 

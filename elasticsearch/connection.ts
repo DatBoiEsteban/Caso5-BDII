@@ -1,4 +1,5 @@
 import { Client } from '@elastic/elasticsearch';
+import logger from '../logger/logger';
 
 // Se conecta con Elastic Search
 const es = new Client({ node: 'http://localhost:9200' });
@@ -60,6 +61,7 @@ export const getHashtags = async (
       },
     },
   });
+  logger.info(resultverdad.body.aggregations.hashtags_count.buckets.length);
 
   // Y retorna los resultados
   return resultverdad.body.aggregations.hashtags_count.buckets;

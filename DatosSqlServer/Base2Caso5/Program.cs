@@ -40,8 +40,8 @@ namespace Base2Caso5
             for (int i = minPostId; i < maxPostId; i++)
             {
                 context.Articulo_Hashtags.Add(new ArticuloHashtag { ArticuloId = i, HashtagId = random.Next(minHashId, maxHashId) });
-                context.Articulo_Hashtags.Add(new ArticuloHashtag { ArticuloId = i, HashtagId = random.Next(minHashId, maxHashId) });
-                context.Articulo_Hashtags.Add(new ArticuloHashtag { ArticuloId = i, HashtagId = random.Next(minHashId, maxHashId) });
+                // context.Articulo_Hashtags.Add(new ArticuloHashtag { ArticuloId = i, HashtagId = random.Next(minHashId, maxHashId) });
+                // context.Articulo_Hashtags.Add(new ArticuloHashtag { ArticuloId = i, HashtagId = random.Next(minHashId, maxHashId) });
             }
         }
 
