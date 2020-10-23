@@ -5,13 +5,13 @@ import logger from '../logger/logger';
 /** Funcion de conexion con MongoDB */
 export default async (app: Application) => {
   return new Promise(async (res, rej) => {
-
     // Intenta conectarse
     try {
       // Abre la conexion
       await mongoose.connect('mongodb://localhost:27017/caso5', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        poolSize: 100,
       });
 
       // Indica que salió bien
@@ -22,7 +22,7 @@ export default async (app: Application) => {
       res();
     } catch (error) {
       // Si sale mal
-      rej(error)
+      rej(error);
     }
-  })
+  });
 };

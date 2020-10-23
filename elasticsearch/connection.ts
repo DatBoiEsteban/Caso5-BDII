@@ -61,7 +61,7 @@ export const getHashtags = async (
       },
     },
   });
-  logger.info(resultverdad.body.aggregations.hashtags_count.buckets.length);
+  // logger.info(resultverdad.body.aggregations.hashtags_count.buckets.length);
 
   // Y retorna los resultados
   return resultverdad.body.aggregations.hashtags_count.buckets;
