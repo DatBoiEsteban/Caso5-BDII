@@ -7,7 +7,7 @@ import Post, { IPost } from './schemas';
 const POSTS_NUMBER = 1000;
 
 /** Indicador si quiere sobrescribir siempre los posts */
-const OVERRIDE = true;
+const OVERRIDE = false;
 
 /** Funcion para generar posts random para mongodb */
 export default async () => {
